@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <title>Apogee / Flower Garden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+    <style>
+      @font-face { font-family: "Suisse Int'l"; src: local("Helvetica Neue"); }
+      :root { color-scheme: dark; --cream: #f2ede3; }
+      html, body { height: 100%; margin: 0; overflow: hidden; background: #000; }
+      body { color: var(--cream); font-family: "Suisse Int'l", Arial, sans-serif; }
+      canvas { position: fixed; inset: 0; display: block; width: 100%; height: 100%; }
+      .ui { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+      .ui a, .ui button { pointer-events: auto; }
+      .serif { font-family: "STIX Two Text", Georgia, serif; }
+      .menu-panel { transform: translateX(105%); transition: transform 500ms cubic-bezier(.22,1,.36,1); }
+      .menu-panel.open { transform: translateX(0); }
+      .loading { transition: opacity 900ms ease; }
+      .loading.done { opacity: 0; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+    <div class="ui">
+      <button id="menu-toggle" class="absolute right-7 top-7 flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-white/25 bg-black/15 backdrop-blur-sm" aria-label="Open menu" aria-expanded="false">
+        <span class="h-px w-4 bg-white/80"></span><span class="h-px w-4 bg-white/80"></span>
+      </button>
+      <div class="loading absolute inset-0 flex items-center justify-center" id="loading"><span class="serif text-sm italic tracking-wide text-white/75">growing the garden…</span></div>
+      <div class="absolute bottom-7 left-1/2 w-full -translate-x-1/2 px-6 text-center text-[10px] uppercase tracking-[.18em] text-white/60">drag · orbit &nbsp;&nbsp; move · stir the wind &nbsp;&nbsp; click · gust &nbsp;&nbsp; scroll · zoom</div>
+      <div class="absolute bottom-7 right-7 hidden text-right font-mono text-[9px] leading-relaxed tracking-wide text-white/35 md:block">15,000 instanced grass · 950 procedural flowers<br />128² GPU fluid wind · 512 GPU particles · ray-marched light</div>
+      <aside class="menu-panel absolute right-0 top-0 h-full w-[min(390px,88vw)] bg-[#0a0a0a]/92 p-8 shadow-2xl backdrop-blur-xl" id="menu-panel">
+        <div class="flex items-center justify-between"><div class="serif text-2xl italic">Apogee</div><button id="menu-close" class="text-2xl text-white/60" aria-label="Close menu">×</button></div>
+        <div class="mt-24"><p class="text-[10px] uppercase tracking-[.22em] text-white/35">A living study in light</p><p class="serif mt-5 text-3xl leading-tight text-white/85">A small garden at the edge of a very large sky.</p></div>
+        <nav class="mt-16 grid gap-5 text-sm text-white/60"><a href="#garden" data-close class="transition-colors hover:text-white">The garden</a><a href="#notes" data-close class="transition-colors hover:text-white">Field notes</a><a href="https://github.com/vikod3/flowergardenthreejs" target="_blank" rel="noreferrer" data-close class="transition-colors hover:text-white">Source study ↗</a></nav>
+        <p class="absolute bottom-8 left-8 right-8 font-mono text-[10px] leading-relaxed text-white/30">Built from procedural geometry, small forces, and a little patience.</p>
+      </aside>
+    </div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
